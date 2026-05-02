@@ -1,6 +1,6 @@
 <?php
 
-class CraftingStoreModule extends Module
+class CraftingStore_Module extends Module
 {
     private InstallDatabaseFlow $installDatabaseFlow;
     private UpdatePermissionFlow $updatePermissionFlow;
@@ -28,10 +28,10 @@ class CraftingStoreModule extends Module
         $this->craftingStoreLanguage = $craftingStoreLanguage;
         $this->cachedSettingRetriever = $cachedSettingRetriever;
 
-        $name = 'CraftingStore (Community Edition)';
-        $author = 'Trygve K.';
-        $moduleVersion = '1.16';
-        $namelessVersion = '2.2.2';
+        $name = 'CraftingStore';
+        $author = '<a href="https://avenvault.com" target="_blank" rel="nofollow noopener">Trygve K.</a>';
+        $moduleVersion = '1.16.0';
+        $namelessVersion = '2.2.4';
 
         parent::__construct($this, $name, $author, $moduleVersion, $namelessVersion);
 
@@ -44,16 +44,7 @@ class CraftingStoreModule extends Module
         $pages->add('CraftingStore', '/panel/craftingstore/sync', 'resources/view/panel/sync.php');
     }
 
-    /**
-     * @var User $user
-     * @var Pages $pages
-     * @var Cache $cache
-     * @var Smarty $smarty
-     * @var Navigation[] $navs
-     * @var Widget $widgets
-     * @var null $template
-     */
-     public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, $navs, Widgets $widgets, $template)
+    public function onPageLoad(User $user, Pages $pages, Cache $cache, $smarty, $navs, Widgets $widgets, TemplateBase $template)
     {
         // Permissions
         PermissionHandler::registerPermissions('CraftingStore', [
@@ -87,13 +78,8 @@ class CraftingStoreModule extends Module
         $this->install();
     }
 
-    public function onUninstall()
-    {
-        //
-    }
+    public function onUninstall() { }
 
-    public function onDisable()
-    {
-        //
-    }
+    public function onDisable() { }
 }
+

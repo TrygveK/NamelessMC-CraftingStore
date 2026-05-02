@@ -1,51 +1,44 @@
 <?php
-try {
-    require_once(__DIR__ . '/classes.php');
+require_once(__DIR__ . '/classes.php');
 
-    $db = DB::getInstance();
-    $cache = new Cache();
+$db = DB::getInstance();
+$cache = new Cache();
 
-    $craftingStoreLanguage = new Language(__DIR__ . '/resources/lang', LANGUAGE);
+$craftingStoreLanguage = new Language(__DIR__ . '/resources/lang', LANGUAGE);
 
-    $settingRepository = new SettingRepository($db);
-    $paymentRepository = new PaymentRepository($db);
-    $packageRepository = new PackageRepository($db);
-    $categoryRepository = new CategoryRepository($db);
+$settingRepository = new SettingRepository($db);
+$paymentRepository = new PaymentRepository($db);
+$packageRepository = new PackageRepository($db);
+$categoryRepository = new CategoryRepository($db);
 
-    $cachedSettingRetriever = new CachedSettingRetriever($settingRepository, $cache);
+$cachedSettingRetriever = new CachedSettingRetriever($settingRepository, $cache);
 
-    $installDatabaseFlow = new InstallDatabaseFlow($db);
-    $updatePermissionFlow = new UpdatePermissionFlow($db);
-    $navigationOrderRetriever = new NavigationOrderRetriever($cache);
-    $backendNavigationBuilder = new BackendNavigationBuilder($navigationOrderRetriever, $craftingStoreLanguage);
-    $userNavigationBuilder = new UserNavigationBuilder($navigationOrderRetriever, $cachedSettingRetriever, $craftingStoreLanguage);
+$installDatabaseFlow = new InstallDatabaseFlow($db);
+$updatePermissionFlow = new UpdatePermissionFlow($db);
+$navigationOrderRetriever = new NavigationOrderRetriever($cache);
+$backendNavigationBuilder = new BackendNavigationBuilder($navigationOrderRetriever, $craftingStoreLanguage);
+$userNavigationBuilder = new UserNavigationBuilder($navigationOrderRetriever, $cachedSettingRetriever, $craftingStoreLanguage);
 
-    $informationRetriever = new InformationRetriever();
-    $paymentRetriever = new PaymentRetriever();
-    $packageRetriever = new PackageRetriever();
-    $categoryRetriever = new CategoryRetriever();
+$informationRetriever = new InformationRetriever();
+$paymentRetriever = new PaymentRetriever();
+$packageRetriever = new PackageRetriever();
+$categoryRetriever = new CategoryRetriever();
 
-    $informationUpdater = new InformationUpdater($settingRepository);
-    $paymentUpdater = new PaymentUpdater($paymentRepository);
-    $packageUpdater = new PackageUpdater($packageRepository);
-    $categoryUpdater = new CategoryUpdater($categoryRepository);
+$informationUpdater = new InformationUpdater($settingRepository);
+$paymentUpdater = new PaymentUpdater($paymentRepository);
+$packageUpdater = new PackageUpdater($packageRepository);
+$categoryUpdater = new CategoryUpdater($categoryRepository);
 
-    $updatePaymentFlow = new UpdatePaymentFlow($paymentUpdater, $paymentRetriever);
-    $updatePackageFlow = new UpdatePackageFlow($packageUpdater, $packageRetriever);
-    $updateCategoryFlow = new UpdateCategoryFlow($categoryUpdater, $categoryRetriever);
+$updatePaymentFlow = new UpdatePaymentFlow($paymentUpdater, $paymentRetriever);
+$updatePackageFlow = new UpdatePackageFlow($packageUpdater, $packageRetriever);
+$updateCategoryFlow = new UpdateCategoryFlow($categoryUpdater, $categoryRetriever);
 
-    $fullSyncFlow = new FullSyncFlow($informationRetriever, $settingRepository, $informationUpdater, $updateCategoryFlow, $updatePackageFlow, $updatePaymentFlow);
+$fullSyncFlow = new FullSyncFlow($informationRetriever, $settingRepository, $informationUpdater, $updateCategoryFlow, $updatePackageFlow, $updatePaymentFlow);
 
-    $categoryViewMapper = new CategoryViewMapper();
-    $packageViewMapper = new PackageViewMapper();
+$categoryViewMapper = new CategoryViewMapper();
+$packageViewMapper = new PackageViewMapper();
 
-    $categoryBuilder = new CategoryBuilder($categoryRepository, $categoryViewMapper);
-    $packageBuilder = new PackageBuilder($packageRepository, $packageViewMapper);
+$categoryBuilder = new CategoryBuilder($categoryRepository, $categoryViewMapper);
+$packageBuilder = new PackageBuilder($packageRepository, $packageViewMapper);
 
-    $module = new CraftingStoreModule($installDatabaseFlow, $updatePermissionFlow, $backendNavigationBuilder, $userNavigationBuilder, $language, $craftingStoreLanguage, $pages, $cachedSettingRetriever);
-} catch (Exception $e) {
-    $logFile = ROOT_PATH . '/cache/logs/fatal-errors.log';
-    $errorMessage = '[' . date('Y-m-d H:i:s') . '] CraftingStore init.php error: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() . PHP_EOL;
-    file_put_contents($logFile, $errorMessage, FILE_APPEND | LOCK_EX);
-    // Do not throw to avoid 500 error
-}
+$module = new CraftingStore_Module($installDatabaseFlow, $updatePermissionFlow, $backendNavigationBuilder, $userNavigationBuilder, $language, $craftingStoreLanguage, $pages, $cachedSettingRetriever);

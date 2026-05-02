@@ -4,23 +4,16 @@ class CategoryRetriever
 {
     public function retrieve(string $token): array
     {
-        try {
-            $client = HttpClient::get('https://api.craftingstore.net/v7/categories', [
-                'headers' => [
-                    'token' => $token,
-                    'User-Agent' => 'NamelessMC-CraftingStore'
-                ]
-            ]);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['token: ' . $token]);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_USERAGENT, 'NamelessMC-CraftingStore');
+        curl_setopt($ch, CURLOPT_URL, 'https://api.craftingstore.net/v7/categories');
 
-            if ($client->hasError()) {
-                Log::getInstance()->log(Log::Action('craftingstore/api_error'), 'Categories API error: ' . $client->getError());
-                return [];
-            }
+        $result = curl_exec($ch);
+        $result = json_decode($result, true);
 
-            return $client->json() ?? [];
-        } catch (Exception $e) {
-            Log::getInstance()->log(Log::Action('craftingstore/api_error'), 'Categories API exception: ' . $e->getMessage());
-            return [];
-        }
+        return $result;
     }
 }

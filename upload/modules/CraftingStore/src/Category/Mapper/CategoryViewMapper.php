@@ -13,7 +13,7 @@ class CategoryViewMapper
             'id' => $category->id,
             'name' => $category->name,
             'description' => $category->description,
-            'subCategories' => $category->subCategories ?? [],
+            'subCategories' => $category->subCategories,
             'link' => URL::build($storePath . '/category/' . $category->id)
         ];
     }
