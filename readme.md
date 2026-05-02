@@ -2,8 +2,8 @@
 Integrate CraftingStore into your NamelessMC website
 
 ## Requirements
-- NamelessMC version 2.2.2
-- PHP 7.2 or higher, we do not support older versions, as those do not get any security updates from PHP.
+- NamelessMC version 2.2.4
+- PHP 8.5 or higher, we do not support older versions, as those do not get any security updates from PHP.
 - [CraftingStore](https://craftingstore.net)
 
 ## Installation
