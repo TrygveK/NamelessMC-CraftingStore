@@ -25,6 +25,8 @@ class CategoryBuilder
         $mainCategories = $this->categoryRepository->getWithoutParentOrdered();
 
         foreach ($mainCategories as $mainCategory) {
+            // Initialize subCategories property to avoid dynamic property deprecation
+            $mainCategory->subCategories = [];
 
             // Add sub-categories
             $dbSubCategories = $this->categoryRepository->getByParentCategoryId($mainCategory->id);

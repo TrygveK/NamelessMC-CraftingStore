@@ -28,10 +28,10 @@ class CraftingStoreModule extends Module
         $this->craftingStoreLanguage = $craftingStoreLanguage;
         $this->cachedSettingRetriever = $cachedSettingRetriever;
 
-        $name = 'CraftingStore';
-        $author = 'CraftingStore';
-        $moduleVersion = '1.15';
-        $namelessVersion = '2.1.1';
+        $name = 'CraftingStore (Community Edition)';
+        $author = 'Trygve K.';
+        $moduleVersion = '1.16';
+        $namelessVersion = '2.2.2';
 
         parent::__construct($this, $name, $author, $moduleVersion, $namelessVersion);
 
