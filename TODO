@@ -1,0 +1,1 @@
+ problem: classes.php uses require_once which silently fails if there's any issue during the include chain
