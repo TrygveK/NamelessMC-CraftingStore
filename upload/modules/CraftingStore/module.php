@@ -2,13 +2,20 @@
 
 class CraftingStore_Module extends Module
 {
-    private InstallDatabaseFlow $installDatabaseFlow;
-    private UpdatePermissionFlow $updatePermissionFlow;
-    private BackendNavigationBuilder $backendNavigationBuilder;
-    private UserNavigationBuilder $userNavigationBuilder;
-    private Language $language;
-    private Language $craftingStoreLanguage;
-    private CachedSettingRetriever $cachedSettingRetriever;
+    /** @var InstallDatabaseFlow */
+    private $installDatabaseFlow;
+    /** @var UpdatePermissionFlow */
+    private $updatePermissionFlow;
+    /** @var BackendNavigationBuilder */
+    private $backendNavigationBuilder;
+    /** @var UserNavigationBuilder */
+    private $userNavigationBuilder;
+    /** @var Language */
+    private $language;
+    /** @var Language */
+    private $craftingStoreLanguage;
+    /** @var CachedSettingRetriever */
+    private $cachedSettingRetriever;
 
     public function __construct(
         InstallDatabaseFlow $installDatabaseFlow,
@@ -29,7 +36,7 @@ class CraftingStore_Module extends Module
         $this->cachedSettingRetriever = $cachedSettingRetriever;
 
         $name = 'CraftingStore';
-        $author = '<a href="https://avenvault.com" target="_blank" rel="nofollow noopener">Trygve K.</a>';
+        $author = 'CraftingStore';
         $moduleVersion = '1.16.0';
         $namelessVersion = '2.2.4';
 

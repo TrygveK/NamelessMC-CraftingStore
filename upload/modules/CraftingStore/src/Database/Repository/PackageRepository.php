@@ -2,7 +2,8 @@
 
 class PackageRepository
 {
-    protected DB $db;
+    /** @var DB */
+    protected $db;
 
     public function __construct(DB $db)
     {
